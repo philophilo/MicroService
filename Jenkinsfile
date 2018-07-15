@@ -9,10 +9,15 @@ node {
                 sh 'docker login -u philophilo -p ${dockerpass}'
             }
         }
+        
+        
 
         stage('Run maven') {
             env.PATH = "${tool 'maven-3.5.3'}/bin:${env.PATH}"
-            sh "mvn clean install"
+            def project_path = "MicroService/"
+            dir(project_path){
+                sh "mvn clean install"
+            }
         }
 
         stage('retrieve artifacts'){

@@ -21,7 +21,7 @@ node {
                 sh '. build-images.sh'
             }
 
-            stage(run kubernetes){
+            stage('run kubernetes'){
                 sh '. start-all.sh'
             }
         }

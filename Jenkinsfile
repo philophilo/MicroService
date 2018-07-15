@@ -10,10 +10,9 @@ node {
             }
         }
 
-        stage('compiler, tester, packager') {
-            def mvnHome = tool name:'maven-3.5.3', type: 'maven'
-            def mvnCMD = "${mvnHome}/bin/mvn"
-            sh "${mvnCMD} clean install"
+        stage('Run maven') {
+            env.PATH = "${tool 'maven-3.5.3'}/bin:${env.PATH}"
+            sh "mvn clean install"
         }
 
         stage('Build images and push') {

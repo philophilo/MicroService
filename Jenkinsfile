@@ -1,14 +1,15 @@
 node {
 	try{
-		stage('SCM checkout') {
+		stage('checkout the repo') {
 			git 'https://github.com/philophilo/MicroService.git'
   		}
 
-  		project_path = "Kubernetes-eShop/kubernetes"
-
         stage('login to dockerhub') {
-            withCredentials([string(credentialsId: 'dockerpass', variable: 'dockerpass')]) {
-                sh 'docker login -u philophilo -p ${dockerpass}'
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerpass', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh 'echo $PASSWORD'
+                    sh 'echo $USERNAME'
+                }
             }
         }
 

@@ -23,7 +23,7 @@ node {
             }
 
             stage('Build images and push') {
-                sh '. build-images.sh'
+                sh './build-images.sh'
             }
 
             stage('run kubernetes'){

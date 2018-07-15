@@ -7,7 +7,9 @@ node {
   		project_path = "Kubernetes-eShop/kubernetes"
 
         stage('login to dockerhub') {
+            echo "========================================"
             withCredentials([string(credentialsId: 'dockerpass', variable: 'dockerpass')]) {
+                echo "------------------------"
                 sh 'docker login -u philophilo -p ${dockerpass}'
             }
         }

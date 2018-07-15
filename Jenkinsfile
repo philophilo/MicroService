@@ -17,6 +17,11 @@ node {
 
         def directory = "kubernetes/"
         dir(directory){
+            stage('show dir'){
+                sh 'pwd'
+                sh 'ls -al'
+            }
+
             stage('Build images and push') {
                 sh '. build-images.sh'
             }

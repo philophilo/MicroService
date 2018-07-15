@@ -10,20 +10,9 @@ node {
             }
         }
         
-       stage('show directory'){
-           sh 'pwd'
-           sh 'ls -al'
-       }
-
         stage('Run maven') {
             env.PATH = "${tool 'maven-3.5.3'}/bin:${env.PATH}"
             sh "mvn clean install"
-        }
-
-        stage('retrieve artifacts'){
-            step([$class: 'JUnitResultArchiver', testResults: 'target/surefire-reports/TEST-*.xml'])
-            publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'target/site/jacoco', reportFiles: 'index.html', reportName: 'Code coverage', reportTitles: ''])
-            archiveArtifacts "target/*.jar"
         }
 
         stage('Build images and push') {

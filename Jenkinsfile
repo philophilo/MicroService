@@ -24,14 +24,6 @@ node {
 				sh '. build-images.sh'
 			}
 
-			stage('Start kubernetes') {
-				sh '. start-all.sh'
-			}
-
-			stage('show pods'){
-				sh 'kubectl get pods'
-			}
-
 		}	
 	}catch(err){
 		notify("Error ${err}")

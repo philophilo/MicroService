@@ -10,14 +10,14 @@ node {
             }
         }
         
-        
+       stage('show directory'){
+           sh 'pwd'
+           sh 'ls -al'
+       }
 
         stage('Run maven') {
             env.PATH = "${tool 'maven-3.5.3'}/bin:${env.PATH}"
-            def project_path = "MicroService/"
-            dir(project_path){
-                sh "mvn clean install"
-            }
+            sh "mvn clean install"
         }
 
         stage('retrieve artifacts'){

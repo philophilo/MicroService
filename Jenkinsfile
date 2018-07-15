@@ -6,25 +6,22 @@ node {
 
   		project_path = "Kubernetes-eShop/kubernetes"
 
-  		dir(project_path){
+        stage('login to dockerhub') {
+            withCredentials([string(credentialsId: 'dockerpass', variable: 'dockerpass')]) {
+                sh 'docker login -u philophilo -p ${dockerpass}'
+            }
+        }
 
-			stage('login to dockerhub') {
-				withCredentials([string(credentialsId: 'dockerpass', variable: 'dockerpass')]) {
-					sh 'docker login -u philophilo -p ${dockerpass}'
-				}
-			}
+        stage('compiler, tester, packager') {
+            def mvnHome = tool name:'M3', type: 'maven'
+            def mvnCMD = "${mvnHome}/bin/mvn"
+            sh "${mvnCMD} clean install"
+        }
 
-			stage('compiler, tester, packager') {
-				def mvnHome = tool name:'M3', type: 'maven'
-				def mvnCMD = "${mvnHome}/bin/mvn"
-				sh "${mvnCMD} clean install"
-			}
+        stage('Build images and push') {
+            sh '. build-images.sh'
+        }
 
-			stage('Build images and push') {
-				sh '. build-images.sh'
-			}
-
-		}	
 	}catch(err){
 		notify("Error ${err}")
 		currentBuild.result = 'FAILURE'

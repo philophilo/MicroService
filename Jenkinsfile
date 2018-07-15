@@ -15,8 +15,15 @@ node {
             sh "mvn clean install"
         }
 
-        stage('Build images and push') {
-            sh '. build-images.sh'
+        def directory = "kubernetes/"
+        dir(directory){
+            stage('Build images and push') {
+                sh '. build-images.sh'
+            }
+
+            stage(run kubernetes){
+                sh '. start-all.sh'
+            }
         }
 
 	}catch(err){

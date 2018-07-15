@@ -5,11 +5,8 @@ node {
   		}
 
         stage('login to dockerhub') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerpass', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    sh 'echo $PASSWORD'
-                    sh 'echo $USERNAME'
-                }
+            withCredentials([string(credentialsId: 'dockerpass', variable: 'dockerpass')]) {
+                sh 'docker login -u philophilo -p ${dockerpass}'
             }
         }
 

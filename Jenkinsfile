@@ -27,7 +27,7 @@ node {
             }
 
             stage('run kubernetes'){
-                sh '. start-all.sh'
+                sh './start-all.sh'
             }
         }
 

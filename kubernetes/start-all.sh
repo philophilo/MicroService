@@ -15,4 +15,4 @@ sleep 2
 sh start-eshop-web.sh
 sleep 5
 
-kubectl get pod
+kubectl get pods
